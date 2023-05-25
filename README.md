@@ -1,7 +1,7 @@
 # MongoDB
 
 ## Install
-```bash
+```shell
 # Mac M2
 brew tap mongodb/brew
 brew update
@@ -108,7 +108,7 @@ Documents
 ```
 ## Create and Drop Databases
 - Creating Databases
-```bash
+```shell
 user <database-name>
 # The newly created database will NOT visible unless we insert any document inside it.
 # Make sure we see the message "switched to db" <database-name>
@@ -129,11 +129,11 @@ user <database-name>
 ## Create and Drop Collections
 - Creating and Dropping Collections
     - Creating Collections
-```bash
+```shell
 db.createCollection(name, options)
 ```
 - Dropping Collections
-```bash
+```shell
 db.collection.drop()
 ```
 - To create a new collection
@@ -175,3 +175,85 @@ db.collection.drop()
 >   - Date
 >   - Timestamp
 >   - Object Id
+
+## Insert Document
+- Inserting Documents into collections
+    - Insert is used for creating new documents inside the collection.
+    - To insert any document into Collection.
+    ```shell
+    db.<collection-name>.insert({ "name": "emorydu"})
+    ```
+    - To insert many documents at once into collection.
+    ```shell
+    db.<collection-name>.insertMany([
+        { "name": "emorydu" },
+        { "name": "lin" }
+    ])
+    ```
+    - We can insert any number of documents into a collection
+    - We can insert one or more documents into the collection
+
+    - Ever document that we insert will have a unique key "_id"
+        - the value for this key is always unique and 24 character
+        - _id as a Primary Key in your collection
+
+    - Can we change the value of _id??
+        - Yes, we can change it
+        - But - 
+            - it is tricky
+        - `DO NOT DO THIS` - change the _id value
+## Update Document
+- Update any document into Collection
+    - Update can be applied with 
+        - update
+        - updateOne
+        - updateMany
+```shell
+db.<collection-name>.update(
+    { "name": "emorydu" },
+    {
+        $set: {
+            "key": "value"
+        }
+    });
+
+db.<collection-name>.updataMany(
+    {"isActive": true},
+    {
+        $set: {
+            "isActive": false
+        }
+    }
+)
+```
+## Read Data From Collections
+- Multiple ways to Read data from collection
+    - find() - finds all documents in collection
+    ```shell
+    db.collection.find()
+    ```
+    - findOne() - find first document in collection
+    - find({"key1": "value1", "key2": "value2"}) - by setting query conditions
+    - findOneAndReplace({"key1": "value1", "key2": "value2"}, <replacement>)
+    - findOneAndDelete({"key1": "value1", "key2": "value2"})
+
+- find() // return all the documents
+- findOne() // return only 1st document
+- find({"key1": "value1"});
+- findOneReplace({condition}, {replecement});
+- findOneDelete({condition});
+## Delete documents from Collections
+- Multiple ways to Delete data from collection
+    - deleteOne() - find all documents in collection
+    ```shell
+    db.collection.find()
+    Example: db.orders.deleteOne({"_id": ObjectId("asdfa32413dsfasd...")});
+    ```
+    - deleteMany({condition})
+        - Will delete many documents at once
+        - When passed with empty curly brace - it will delete all documents in collections
+        - Example: db.orders.deleteMany({condition});
+- deleteOne()
+    - will only delete one document based on creiteria
+- deleteMany()
+    - pass multiple conditions to satify the document search and delete them
