@@ -257,3 +257,75 @@ db.<collection-name>.updataMany(
     - will only delete one document based on creiteria
 - deleteMany()
     - pass multiple conditions to satify the document search and delete them
+## Queries in MongoDB
+- Conditions in Find Method
+    - We can use multiple operations inside the Find method
+    - Using operations we add more search power to Find method
+- Various conditions that can be used are
+    - Equality
+    - Less Than 
+    - Less Than Equal
+    - Greater Than 
+    - Greater Than Equal
+    - Not Equal
+- Using operations inside Find Method
+- All conditions "MUST" be satisfied in order to return the document
+    - $and - And operation
+        - Match all condition mentioned in the Find method
+        - E.g db.leads.find({$and: [{}, {}]})
+    - $or - OR operation
+        - Match any condition in the find method
+
+- using find method of MongoDB with Operators
+- Eq 
+- lt - less than 
+- lte - less than equal
+- gt - greater than 
+- gte - greater than equal
+- $and
+- $or
+
+- find() - will return all the documents in the collection
+- Find with conditions
+```shell
+db.leads.find({"Tax":"30"})
+```
+- Find method with multiple conditions (AND) by default
+```shell
+db.leads.find({"Tax": "30", "Salary": "23232"})
+```
+- Find method with tax less than 30
+```shell
+db.leads.find({"Tax": { $lte: "30"}})
+```
+- Find mtehod with tax greater than equal 30
+```shell
+db.leads.find({"Tax": { $gte: "30" }})
+```
+- Find method with $eq
+```shell
+db.leads.find({"Tax": "30"})
+```
+- And / OR operator with Find method
+```shell
+db.leads.find({$or: [{"Tax": "30"}, {"Salary": {$lte: "10000"}} ]});
+db.leads.find({$and: [{"Tax": "30"}, {"Salary": {$lte: "10000"}} ]});
+```
+## Selecting Fields
+- Learn how to select specific fields from documents from Collection
+    - We need to specify the field as "1" or "0"
+    ```shell
+    db.leads.find({<condition>}, {"Tax": 1, "_id": 0})
+    ```
+
+
+
+
+
+
+
+
+
+
+
+
